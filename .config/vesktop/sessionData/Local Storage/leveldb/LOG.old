@@ -1,0 +1,6 @@
+2025/03/06-17:18:52.816 635 Reusing MANIFEST /home/gans/.config/vesktop/sessionData/Local Storage/leveldb/MANIFEST-000001
+2025/03/06-17:18:52.821 635 Recovering log #3
+2025/03/06-17:18:52.821 635 Reusing old log /home/gans/.config/vesktop/sessionData/Local Storage/leveldb/000003.log 
+2025/03/06-17:27:16.906 636 Level-0 table #5: started
+2025/03/06-17:27:16.916 636 Level-0 table #5: 39747 bytes OK
+2025/03/06-17:27:16.921 636 Delete type=0 #3
