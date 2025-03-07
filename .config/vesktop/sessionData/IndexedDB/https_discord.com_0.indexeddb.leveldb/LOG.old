@@ -1,2 +1,3 @@
-2025/03/06-17:25:32.368 635 Creating DB /home/gans/.config/vesktop/sessionData/IndexedDB/https_discord.com_0.indexeddb.leveldb since it was missing.
-2025/03/06-17:25:32.376 635 Reusing MANIFEST /home/gans/.config/vesktop/sessionData/IndexedDB/https_discord.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/03/07-07:25:10.558 810 Reusing MANIFEST /home/gans/.config/vesktop/sessionData/IndexedDB/https_discord.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/03/07-07:25:10.558 810 Recovering log #3
+2025/03/07-07:25:10.558 810 Reusing old log /home/gans/.config/vesktop/sessionData/IndexedDB/https_discord.com_0.indexeddb.leveldb/000003.log 

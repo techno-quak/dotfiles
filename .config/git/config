@@ -8,7 +8,9 @@
   path = ~/.config/git/config-class
 
 [user]
-
+	name = Quak
+  email = 196471366+techno-quak@users.noreply.github.com
+  signingKey = EFA35E2158EFEB90
 
 [safe]
   directory = ~/dev
