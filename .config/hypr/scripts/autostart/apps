@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # Apps
-spotify &
+zen-browser &
+spotube &
 vesktop &
 thunderbird &
 obsidian &
+keepassxc &
 
 # Terminal Apps
 kitty --class btop btop &
