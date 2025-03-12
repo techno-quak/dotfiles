@@ -1,8 +1,8 @@
 [Added Associations]
-x-scheme-handler/mailto=userapp-Thunderbird-2BA7Q1.desktop;
-x-scheme-handler/mid=userapp-Thunderbird-2BA7Q1.desktop;
-x-scheme-handler/webcal=userapp-Thunderbird-Q4SPR1.desktop;
-x-scheme-handler/webcals=userapp-Thunderbird-Q4SPR1.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-2BA7Q1.desktop;userapp-Thunderbird-EX6Y22.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-2BA7Q1.desktop;userapp-Thunderbird-EX6Y22.desktop;
+x-scheme-handler/webcal=userapp-Thunderbird-Q4SPR1.desktop;userapp-Thunderbird-MUXZ22.desktop;
+x-scheme-handler/webcals=userapp-Thunderbird-Q4SPR1.desktop;userapp-Thunderbird-MUXZ22.desktop;
 text/html=librewolf.desktop;vscodium-git.desktop;vscodium.desktop;userapp-Floorp-BD4JM2.desktop;userapp-Floorp-FT1TP2.desktop;zen-beta.desktop;zen.desktop;
 inode/directory=android-studio.desktop;obsidian.desktop;vscodium-git.desktop;jetbrains-idea.desktop;userapp-lvim-PRB3S1.desktop;nvim.desktop;vscodium.desktop;qdirstat.desktop;
 video/mp4=mpv.desktop;blender.desktop;vlc.desktop;io.github.celluloid_player.Celluloid.desktop;
@@ -67,7 +67,7 @@ application/x-remmina=org.remmina.Remmina.desktop;
 audio/flac=vlc.desktop;
 
 [Default Applications]
-application/x-extension-ics=userapp-Thunderbird-Q4SPR1.desktop
+application/x-extension-ics=userapp-Thunderbird-MUXZ22.desktop
 x-scheme-handler/notion=notion-app.desktop
 x-scheme-handler/discord-455712169795780630=discord-455712169795780630.desktop
 image/x-xcursor=userapp-vscodium-RA99R1.desktop
@@ -282,13 +282,13 @@ text/x-c++hdr=nvim.desktop
 text/x-csrc=nvim.desktop
 x-scheme-handler/obsidian=obsidian.desktop
 x-scheme-handler/geo=openstreetmap-geo-handler.desktop
-x-scheme-handler/webcal=org.mozilla.Thunderbird.desktop
-message/rfc822=thunderbird.desktop
-x-scheme-handler/mailto=zen-browser.desktop
+x-scheme-handler/webcal=userapp-Thunderbird-MUXZ22.desktop
+message/rfc822=userapp-Thunderbird-EX6Y22.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-EX6Y22.desktop
 text/vcard=org.mozilla.Thunderbird.desktop
-text/calendar=org.mozilla.Thunderbird.desktop
-x-scheme-handler/webcals=org.mozilla.Thunderbird.desktop
-x-scheme-handler/mid=org.mozilla.Thunderbird.desktop
+text/calendar=userapp-Thunderbird-MUXZ22.desktop
+x-scheme-handler/webcals=userapp-Thunderbird-MUXZ22.desktop
+x-scheme-handler/mid=userapp-Thunderbird-EX6Y22.desktop
 x-scheme-handler/vscode=code-url-handler.desktop
 application/pdf=org.pwmt.zathura.desktop
 application/oxps=org.pwmt.zathura-pdf-mupdf.desktop
