@@ -3,7 +3,7 @@
     "include": "~/.config/waybar/bars/bar-1.jsonc",
     "height": 50,
     "layer": "top",
-    "output": "HDMI-A-1",
+    "output": "eDP-1",
     "mode": "dock",
     "exclusive": true,
     "passtrough": false,

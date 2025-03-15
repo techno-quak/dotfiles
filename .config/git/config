@@ -1,12 +1,6 @@
 [include]
   path = ~/.config/git/themes/catppuccin.gitconfig
 
-[includeIf "gitdir:~/dev/work/"]
-  path = ~/.config/git/config-work
-
-[includeIf "gitdir:~/dev/class/"]
-  path = ~/.config/git/config-class
-
 [user]
 	name = Quak
   email = 196471366+techno-quak@users.noreply.github.com
