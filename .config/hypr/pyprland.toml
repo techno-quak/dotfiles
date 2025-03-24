@@ -38,19 +38,19 @@ command = "kitty --class scratchpad-large fish -c 'upall'"
 lazy = true
 
 [scratchpads.bluetooth]
-command = "kitty --class scratchpad-large bluetui"
+command = "kitty --class scratchpad-mini bluetui"
 animation = "fromRight"
 margin = 20
 lazy = true
 
 [scratchpads.wifi]
-command = "kitty --class scratchpads-mini nmtui"
+command = "kitty --class scratchpad-mini fish -c 'nmtui'"
 animation = "fromRight"
 margin = 20
 lazy = true
 
 [scratchpads.network]
-command = "nmtui --class scratchpads-mini"
+command = "kitty --class scratchpad-mini fish -c 'nmtui'"
 animation = "fromRight"
 margin = 20
 lazy = true
