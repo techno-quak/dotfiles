@@ -3,10 +3,9 @@ plugins = ["scratchpads", "magnify", "wallpapers"]
 
 [scratchpads.volume]
 command = "pavucontrol"
-unfocus = "hide"
-position = "1% 8%"
+animation = "fromRight"
+margin = 20
 lazy = true
-force_monitor = "DP-1"
 
 [scratchpads.terminal]
 command = "kitty --class scratchpad-large"
@@ -16,10 +15,6 @@ lazy = true
 command = "kitty --class scratchpad-large fish -c yazi"
 unfocus = "hide"
 hysteresis = 0.1
-lazy = true
-
-[scratchpads.gpt]
-command = "kitty --class scratchpad-large tgpt -m"
 lazy = true
 
 [scratchpads.dots]

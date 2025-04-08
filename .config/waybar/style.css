@@ -66,8 +66,7 @@
   background-color: alpha(@base, 0.9);
   padding: 0 10px;
   margin: 2px 4px 5px 4px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 1px 1px alpha(@shadow, 0.7);
+  border-radius: 60px; 
   border: 2px solid @border;
   background-clip: padding-box;
 }
@@ -82,7 +81,7 @@ window#waybar.hidden {
 }
 
 #workspaces * {
-  font-size: 14px;
+  font-size: 16px;
 }
 #workspaces button label {
   color: @lavender;
@@ -110,12 +109,12 @@ window#waybar.hidden {
   padding: 0 10px;
   margin: 2px 4px 5px 4px;
   box-shadow: 3px 3px 1px 1px alpha(@shadow, 0.7);
-  border-radius: 10px;
+  border-radius: 60px;
   background-clip: padding-box;
 }
 
 #workspaces button {
-  border-radius: 15px;
+  border-radius: 60px;
   margin-right: 3px;
   margin-left: 3px;
   margin-top: 3px;
@@ -180,7 +179,7 @@ window#waybar.hidden {
 
 #custom-cava {
   color: @lavender;
-  border-radius: 12px;
+  border-radius: 60px;
 }
 
 #cpu {

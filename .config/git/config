@@ -7,6 +7,11 @@
 [includeIf "gitdir:~/dev/class/"]
   path = ~/.config/git/config-class
 
+[user]
+  name = Quak
+	email = 196471366+techno-quak@users.noreply.github.com
+
+
 [safe]
   directory = ~/dev
 
@@ -51,7 +56,7 @@
   rebase = false
 
 [commit]
-  gpgsign = true
+	gpgsign = false
 
 [gpg]
   program = /sbin/gpg

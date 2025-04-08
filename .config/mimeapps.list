@@ -384,3 +384,4 @@ x-scheme-handler/remmina=org.remmina.Remmina.desktop
 application/x-remmina=org.remmina.Remmina.desktop
 x-scheme-handler/hydralauncher=hydralauncher.desktop
 x-scheme-handler/discord-1038970224050962582=nuclear.desktop
+x-scheme-handler/discord=vesktop.desktop
