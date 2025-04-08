@@ -1,2 +1,3 @@
-source ~/.config/fish/user_variables.fish
-source ~/.config/fish/abbreviations.fish
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
