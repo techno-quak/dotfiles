@@ -1,7 +1,6 @@
 {
   "include": [
     "~/.config/waybar/modules/custom-cava.jsonc",
-    "~/.config/waybar/modules/custom-wf-recorder.jsonc",
     "~/.config/waybar/modules/custom-updates.jsonc",
     "~/.config/waybar/modules/custom-music.jsonc",
     "~/.config/waybar/modules/custom-notifications.jsonc",
@@ -17,8 +16,7 @@
   "modules-left": [
     "custom/updates",
     "hyprland/workspaces",
-    "tray",
-    "custom/wf-recorder"
+    "tray" 
   ],
   "modules-center": [ 
     "custom/cava",

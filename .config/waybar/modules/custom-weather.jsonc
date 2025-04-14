@@ -1,7 +1,7 @@
 {
   "custom/weather": {
     "exec-if": "which wttrbar",
-    "exec": "wttrbar --location Poznan",
+    "exec": "wttrbar --location 61245",
     "restart-interval": 300,
     "tooltip": true,
     "format": "{}°",
