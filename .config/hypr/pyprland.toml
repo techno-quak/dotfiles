@@ -7,6 +7,12 @@ animation = "fromRight"
 margin = 20
 lazy = true
 
+[scratchpads.bluetooth]
+command = "overskride"
+animation = "fromRight"
+margin = 20
+lazy = true
+
 [scratchpads.terminal]
 command = "kitty --class scratchpad-large"
 lazy = true
@@ -35,18 +41,6 @@ lazy = true
 
 [scratchpads.topgrade-all]
 command = "kitty --class scratchpad-large fish -c 'upall'"
-lazy = true
-
-[scratchpads.bluetooth]
-command = "overskride"
-animation = "fromRight"
-margin = 20
-lazy = true
-
-[scratchpads.wifi]
-command = "iwgtk"
-animation = "fromRight"
-margin = 20
 lazy = true
 
 [scratchpads.network]

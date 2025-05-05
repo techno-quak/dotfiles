@@ -8,7 +8,6 @@
     "format-disconnected": "󰖪 ",
     "tooltip": true,
     "interval": 2,
-    "on-click": "pypr toggle network",
-    "on-click-right": "pypr toggle wifi",
-  },
+    "on-click": "pypr toggle network"
+  }
 }

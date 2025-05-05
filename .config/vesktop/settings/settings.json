@@ -469,7 +469,12 @@
         "Translate": {
             "enabled": true,
             "autoTranslate": false,
-            "showChatBarButton": true
+            "showChatBarButton": true,
+            "receivedInput": "auto",
+            "service": "google",
+            "receivedOutput": "ru",
+            "sentInput": "auto",
+            "sentOutput": "en"
         },
         "TypingIndicator": {
             "enabled": true,
@@ -737,7 +742,7 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1744095339186
+        "settingsSyncVersion": 1744871143561
     },
     "eagerPatches": false
 }

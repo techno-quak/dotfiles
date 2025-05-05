@@ -23,7 +23,7 @@ BAR="waybar waybar-updates wttr wttrbar cava"
 $YAY $BAR
 
 #Install greeter
-GREET="greetd greetd-regreet"
+GREET="greetd greetd-tuigreet"
 $YAY $GREET
 sudo systemctl enable greetd.service
 
@@ -58,8 +58,6 @@ $YAY $SOUND
 #Terminal
 TERMINAL="kitty starship fish fisher vivid"
 $YAY $TERMINAL
-fisher list | fisher install
-fish_config theme save "Catppuccin Macchiato"
 
 #Multimedia
 FILES="yazi nautilus bat udiskie"

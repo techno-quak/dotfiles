@@ -11,8 +11,12 @@
         "en"
     ],
     "audio": {
-        "workaround": true,
+        "workaround": false,
         "deviceSelect": true,
-        "granularSelect": false
+        "granularSelect": false,
+        "onlyDefaultSpeakers": false,
+        "ignoreDevices": false,
+        "ignoreInputMedia": false,
+        "onlySpeakers": true
     }
 }
