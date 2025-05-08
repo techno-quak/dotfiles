@@ -1,82 +1,147 @@
 #!/bin/bash
+set -e
 
-sudo pacman -Syu yay
+# === Colors ===
+GREEN="\e[32m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
+RESET="\e[0m"
 
-YAY="yay -Sy --noconfirm --sudoloop --needed"
+confirm() {
+    read -rp "$(echo -e "${YELLOW}→ $1 [y/N]: ${RESET}")" response
+    [[ "$response" =~ ^[Yy]$ ]]
+}
 
-WORK="zen-browser"
-COMMS="betterbird vesktop"
-DEV="neovim yadm"
-UTILS="hyprfreeze topgrade fastfetch nvtop btop fzf ripgrep fd satty"
-ENT="spotify freetube mangohud"
+step() {
+    echo -e "\n${BLUE}==> $1${RESET}"
+}
 
-#Install hyprland with basic components
-HYPR="hyprland uwsm xdg-desktop-portal-hyprland hyprpolkitagent"
-$YAY $HYPR
+success() {
+    echo -e "${GREEN}✔ $1${RESET}"
+}
 
-#Install other things for hyprland
-HYPRADD="hyprlock hypridle hyprpicker swww rofi-wayland wl-clipboard cliphist swayosd brightnessctl pyprland"
-$YAY $HYPRADD
+# === Ensure yay is installed ===
+if ! command -v yay &>/dev/null; then
+    step "Installing yay (AUR helper)..."
+    sudo pacman -S --needed --noconfirm git base-devel
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    pushd /tmp/yay && makepkg -si --noconfirm && popd
+    rm -rf /tmp/yay
+    success "yay installed"
+fi
 
-#Install waybar and components
-BAR="waybar waybar-updates wttr wttrbar cava"
-$YAY $BAR
+# === Package Categories ===
 
-#Install greeter
-GREET="greetd greetd-tuigreet"
-$YAY $GREET
-sudo systemctl enable greetd.service
+## Wayland / WM
+WM_PKGS=(
+    hyprland hyprlock hypridle xdg-desktop-portal-hyprland hyprpicker
+    swww waybar waybar-updates rofi-wayland swaync wl-clipboard cliphist
+    swayosd-git brightnessctl udiskie devify polkit-gnome playerctl pyprland
+    grim slurp
+)
 
-#Color theme
-THEME="catppuccin-gtk-theme-macchiato catppuccin-cursors-macchiato qt5ct qt5-wayland qt6-wayland kvantum kvantum-qt5 nwg-look"
-$YAY $THEME
+## CLI / TUI
+CLI_PKGS=(
+    fastfetch fzf jq eza fd vivid fish starship ripgrep bat yazi wttr wttrbar
+)
 
-#Icon theme
-curl -LJO https://github.com/ljmill/catppuccin-icons/releases/download/v0.2.0/Catppuccin-SE.tar.bz2
-tar -xf Catppuccin-SE.tar.bz2
-mv Catppuccin-SE ~/.local/share/icons/
-rm Catppuccin-SE.tar.bz2
+## GUI Applications
+GUI_PKGS=(
+    pavucontrol satty nemo zathura zathura-pdf-mupdf qimgv-light mpv easyeffects rofi-emoji
+)
 
-#Fonts
-FONTS="ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ttf-nerd-fonts-symbols-common ttf-font-awesome noto-fonts-cjk ttf-ms-win11-auto"
-$YAY $FONTS
-fc-cache -fv
+## Theming
+THEME_PKGS=(
+    catppuccin-gtk-theme-macchiato catppuccin-cursors-macchiato
+    qt5ct qt5-wayland qt6-wayland kvantum kvantum-qt5 nwg-look
+)
 
-#Bluetooth
-BLUETOOTH="overskride"
-$YAY $BLUETOOTH
-sudo systemctl enable --now bluetooth
+## Fonts
+FONT_PKGS=(
+    ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
+    ttf-nerd-fonts-symbols-common ttf-font-awesome noto-fonts-cjk ttf-ms-win11-auto
+)
 
-#Internet
-INTERNET="nm-connection-editor iwgtk"
-$YAY $INTERNET
+# === Install Groups ===
 
-#Sound
-SOUND="playerctl pavucontrol easyeffects"
-$YAY $SOUND
+install_group() {
+    local name=$1
+    shift
+    local packages=("$@")
+    if confirm "Install: $name (${#packages[@]} packages)?"; then
+        yay -S --needed --noconfirm "${packages[@]}"
+        success "$name installed"
+    fi
+}
 
-#Terminal
-TERMINAL="kitty starship fish fisher vivid"
-$YAY $TERMINAL
+install_group "Wayland & Window Manager" "${WM_PKGS[@]}"
+install_group "CLI / TUI Tools" "${CLI_PKGS[@]}"
+install_group "Graphical Applications" "${GUI_PKGS[@]}"
+install_group "Theming Packages" "${THEME_PKGS[@]}"
+install_group "Fonts" "${FONT_PKGS[@]}"
 
-#Multimedia
-FILES="yazi nautilus bat udiskie"
-$YAY $FILES
+# === Icons ===
+if confirm "Download and install Catppuccin-SE icon theme?"; then
+    step "Downloading and installing icon theme..."
+    mkdir -p ~/.local/share/icons
+    curl -LJO https://github.com/ljmill/catppuccin-icons/releases/download/v0.2.0/Catppuccin-SE.tar.bz2
+    tar -xf Catppuccin-SE.tar.bz2
+    mv Catppuccin-SE ~/.local/share/icons/
+    rm Catppuccin-SE.tar.bz2
+    success "Icon theme installed"
+fi
 
-#Install yazi plugins
-ya pack -i
-git clone https://github.com/DreamMaoMao/searchjump.yazi.git ~/.config/yazi/plugins/searchjump.yazi
-git clone https://github.com/DreamMaoMao/fg.yazi.git ~/.config/yazi/plugins/fg.yazi
-git clone https://gitee.com/DreamMaoMao/fg.yazi.git $env:APPDATA\yazi\config\plugins\fg.yazi
+# === Font cache ===
+if confirm "Rebuild font cache?"; then
+    fc-cache -fv
+    success "Font cache updated"
+fi
 
-#Bat theme
-mkdir -p "$(bat --config-dir)/themes"
-wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Macchiato.tmTheme
-bat cache --build
+# === Dotfiles ===
+if confirm "Clone dotfiles using yadm?"; then
+    read -rp "Enter your dotfiles repo URL (e.g. https://github.com/yourname/dotfiles): " REPO
+    if [ -n "$REPO" ]; then
+        yay -S --needed --noconfirm yadm
+        yadm clone "$REPO"
+        success "Dotfiles cloned"
+    else
+        echo "❌ Repo URL not provided. Skipping."
+    fi
+fi
 
-#Notifications
-NOTIFY="devify swaync"
-$YAY $NOTIFY
+# === Fish Configuration & Fisher Plugins ===
+if confirm "Install fisher plugins and apply Catppuccin theme to Fish?"; then
+    if ! command -v fish &>/dev/null; then
+        echo "❌ Fish is not installed. Skipping."
+    else
+        if ! command -v fisher &>/dev/null; then
+            step "Installing fisher..."
+            fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher'
+        fi
 
-#Install dotfiles
-yadm clone https://github.com/techno-quak/dotfiles.git
+        fish -c "fisher list | fisher install"
+        fish -c 'fish_config theme save "Catppuccin macchiato"'
+        success "Fisher plugins installed and theme set"
+    fi
+fi
+
+# === vivid (if not already installed) ===
+if ! yay -Q vivid &>/dev/null; then
+    if confirm "Install vivid color theme tool?"; then
+        yay -S --needed --noconfirm vivid
+        success "vivid installed"
+    fi
+fi
+
+# === ya pack -i ===
+if command -v ya &>/dev/null; then
+    if confirm "Run 'ya pack -i'?"; then
+        ya pack -i
+        success "'ya pack -i' completed"
+    fi
+else
+    echo "❌ 'ya' command not found. Skipping ya pack."
+fi
+
+
+success "✅ Setup complete!"
