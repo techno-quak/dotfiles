@@ -7,10 +7,17 @@ sort_dir_first = true
 
 [opener]
 folder = [
-  { run = 'hyprctl dispatch exec "[float; size 60% 60%; center 1] nautilus" "$1"', orphan = true, desc = "nautilus", for = "linux" },
+  { run = 'hyprctl dispatch uwsm --app "[float; size 60% 60%; center 1] nautilus" "$1"', orphan = true, desc = "nautilus", for = "linux" },
+  { run = '''fish -c "nvim "$1""''', block = true, desc = "neovim", for = "linux" },
+  { run = 'kitty --detach nvim "$@"', orphan = true, desc = "neovim (detached)", for = "linux" },
+  { run = '''fish -c "lazygit -p "$1""''', block = true, desc = "lazygit", for = "linux" },
+  { run = 'codium  "$@"', orphan = true, desc = "vscodium", for = "linux" },
+  { run = 'kitty "$@"', orphan = true, desc = "kitty", for = "linux" },
+  { run = 'xdg-open "$@"', orphan = true, desc = "xdg-open", for = "linux" },
 ]
 
 text = [
+  { run = '$EDITOR "$@"', block = true, desc = "Default editor", for = "linux" },
   { run = 'nvim "$@"', block = true, desc = "neovim", for = "linux" },
   { run = 'kitty --detach nvim "$@"', block = true, desc = "neovim (detached)", for = "linux" },
   { run = 'codium  "$@"', orphan = true, desc = "vscodium", for = "linux" },
@@ -49,7 +56,6 @@ fallback = [
 [open]
 rules = [
   { name = "*/", use = "folder" },
-
   { mime = "text/*", use = "text" },
   { mime = "image/*", use = "image" },
   { mime = "video/*", use = "video" },
@@ -57,7 +63,6 @@ rules = [
   { mime = "audio/*", use = "audio" },
   { mime = "inode/x-empty", use = "text" },
   { mime = "application/json", use = "text" },
-
   { mime = "application/zip", use = "archive" },
   { mime = "application/gzip", use = "archive" },
   { mime = "application/x-bzip", use = "archive" },
@@ -68,7 +73,6 @@ rules = [
   { mime = "application/pdf", use = "document" },
   { mime = "application/epub+zip", use = "document" },
   { mime = "application/x-mobipocket-ebook", use = "document" },
-
   { mime = "*", use = "fallback" },
 ]
 
@@ -81,3 +85,23 @@ run = "git"
 id = "git"
 name = "*/"
 run = "git"
+
+[plugin]
+
+prepend_preloaders = [
+    # Office Documents
+    { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    { mime = "application/oasis.opendocument.*", run = "office" },
+    { mime = "application/ms-*", run = "office" },
+    { mime = "application/msword", run = "office" },
+    { name = "*.docx", run = "office" },
+]
+
+prepend_previewers = [
+    # Office Documents
+    { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    { mime = "application/oasis.opendocument.*", run = "office" },
+    { mime = "application/ms-*", run = "office" },
+    { mime = "application/msword", run = "office" },
+    { name = "*.docx", run = "office" },
+]

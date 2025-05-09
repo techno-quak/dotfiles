@@ -1,13 +1,13 @@
 [icon]
 prepend_dirs = [
-  { name = "desktop", text = "" },
-  { name = "dev", text = "" },
-  { name = "documents", text = "" },
-  { name = "downloads", text = "" },
-  { name = "music", text = "" },
-  { name = "games", text = "󰊴" },
-  { name = "pictures", text = "" },
-  { name = "videos", text = "" },
+  { name = "Desktop", text = "" },
+  { name = "Dev", text = "" },
+  { name = "Documents", text = "" },
+  { name = "Downloads", text = "" },
+  { name = "Music", text = "" },
+  { name = "Games", text = "󰊴" },
+  { name = "Pictures", text = "" },
+  { name = "Videos", text = "" },
 ]
 
 [flavor]

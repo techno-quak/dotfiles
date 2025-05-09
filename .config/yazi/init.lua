@@ -185,9 +185,3 @@ require("yatline-githead"):setup({
 	ahead_color = catppuccin_palette.green,
 	behind_color = catppuccin_palette.yellow,
 })
-
-require("git"):setup()
-
-require("fg"):setup({
-	default_action = "jump",
-})
