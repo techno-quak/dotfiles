@@ -8,7 +8,7 @@ BLUE="\e[34m"
 RESET="\e[0m"
 
 confirm() {
-    read -rp "$(echo -e "${YELLOW}→ $1 [y/N]: ${RESET}")" response
+    read -rp "$(echo -e \"${YELLOW}→ $1 [y/N]: ${RESET}\")" response
     [[ "$response" =~ ^[Yy]$ ]]
 }
 
@@ -18,6 +18,21 @@ step() {
 
 success() {
     echo -e "${GREEN}✔ $1${RESET}"
+}
+
+select_alternative() {
+    local prompt="$1"
+    shift
+    local options=("$@")
+    echo -e "${YELLOW}${prompt}${RESET}"
+    select opt in "${options[@]}"; do
+        if [[ -n "$opt" ]]; then
+            echo "$opt"
+            return
+        else
+            echo "Invalid option. Try again."
+        fi
+    done
 }
 
 # === Ensure yay is installed ===
@@ -30,39 +45,24 @@ if ! command -v yay &>/dev/null; then
     success "yay installed"
 fi
 
-# === Package Categories ===
+# === Define Packages ===
 
-## Wayland / WM
-WM_PKGS=(
-    hyprland hyprlock hypridle xdg-desktop-portal-hyprland hyprpicker
-    swww waybar waybar-updates rofi-wayland swaync wl-clipboard cliphist
-    swayosd-git brightnessctl udiskie devify polkit-gnome playerctl pyprland
-    grim slurp
-)
+WM_PKGS=(hyprland hyprlock hypridle xdg-desktop-portal-hyprland hyprpicker swww waybar waybar-updates rofi-wayland swaync wl-clipboard cliphist swayosd-git brightnessctl udiskie devify polkit-gnome playerctl pyprland grim slurp)
 
-## CLI / TUI
-CLI_PKGS=(
-    fastfetch fzf jq eza fd vivid fish starship ripgrep bat yazi wttr wttrbar
-)
+CLI_PKGS=(fastfetch fzf jq eza fd vivid fish starship ripgrep bat yazi wttr wttrbar)
 
-## GUI Applications
-GUI_PKGS=(
-    pavucontrol satty nemo zathura zathura-pdf-mupdf qimgv-light mpv easyeffects rofi-emoji
-)
+GUI_PKGS=(pavucontrol satty nemo zathura zathura-pdf-mupdf qimgv-light mpv easyeffects rofi-emoji)
 
-## Theming
-THEME_PKGS=(
-    catppuccin-gtk-theme-macchiato catppuccin-cursors-macchiato
-    qt5ct qt5-wayland qt6-wayland kvantum kvantum-qt5 nwg-look
-)
+THEME_PKGS=(catppuccin-gtk-theme-macchiato catppuccin-cursors-macchiato qt5ct qt5-wayland qt6-wayland kvantum kvantum-qt5 nwg-look)
 
-## Fonts
-FONT_PKGS=(
-    ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
-    ttf-nerd-fonts-symbols-common ttf-font-awesome noto-fonts-cjk ttf-ms-win11-auto
-)
+FONT_PKGS=(ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono ttf-nerd-fonts-symbols-common ttf-font-awesome noto-fonts-cjk ttf-ms-win11-auto)
 
-# === Install Groups ===
+# === Alternatives ===
+declare -A ALTERNATIVES
+ALTERNATIVES[Browser]="zen-browser-bin firefox"
+ALTERNATIVES[Email]="betterbird thunderbird"
+ALTERNATIVES[Editor]="neovim vscodium"
+ALTERNATIVES[Music]="spotify strawberry"
 
 install_group() {
     local name=$1
@@ -74,11 +74,24 @@ install_group() {
     fi
 }
 
+install_alternatives() {
+    for key in "${!ALTERNATIVES[@]}"; do
+        IFS=' ' read -ra options <<< "${ALTERNATIVES[$key]}"
+        selected=$(select_alternative "Select $key:" "${options[@]}")
+        if [[ -n "$selected" ]]; then
+            yay -S --needed --noconfirm "$selected"
+            success "$key ($selected) installed"
+        fi
+    done
+}
+
+# === Start Install ===
 install_group "Wayland & Window Manager" "${WM_PKGS[@]}"
 install_group "CLI / TUI Tools" "${CLI_PKGS[@]}"
 install_group "Graphical Applications" "${GUI_PKGS[@]}"
 install_group "Theming Packages" "${THEME_PKGS[@]}"
 install_group "Fonts" "${FONT_PKGS[@]}"
+install_alternatives
 
 # === Icons ===
 if confirm "Download and install Catppuccin-SE icon theme?"; then
@@ -125,7 +138,7 @@ if confirm "Install fisher plugins and apply Catppuccin theme to Fish?"; then
     fi
 fi
 
-# === vivid (if not already installed) ===
+# === vivid ===
 if ! yay -Q vivid &>/dev/null; then
     if confirm "Install vivid color theme tool?"; then
         yay -S --needed --noconfirm vivid
@@ -133,9 +146,10 @@ if ! yay -Q vivid &>/dev/null; then
     fi
 fi
 
-# === ya pack -i ===
+# === ya pack ===
 if command -v ya &>/dev/null; then
-    if confirm "Run 'ya pack -i'?"; then
+    if confirm "Run 'ya pack -i'?"; then 
+        git clone https://github.com/DreamMaoMao/searchjump.yazi.git ~/.config/yazi/plugins/searchjump.yazi
         ya pack -i
         success "'ya pack -i' completed"
     fi
@@ -143,5 +157,5 @@ else
     echo "❌ 'ya' command not found. Skipping ya pack."
 fi
 
-
 success "✅ Setup complete!"
+
